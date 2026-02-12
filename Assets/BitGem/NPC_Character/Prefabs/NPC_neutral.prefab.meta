@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 5f8511b9bd25448b4a59a7c1bbc0cf98
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 100100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 132051
+  packageName: NPC Character - Smashy Craft Series
+  packageVersion: 1.0
+  assetPath: Assets/BitGem/NPC_Character/Prefabs/NPC_neutral.prefab
+  uploadId: 275751

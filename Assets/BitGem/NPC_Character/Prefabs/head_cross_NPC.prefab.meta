@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 7f4ea3db66d944c21bb34648571b28f6
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 100100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 132051
+  packageName: NPC Character - Smashy Craft Series
+  packageVersion: 1.0
+  assetPath: Assets/BitGem/NPC_Character/Prefabs/head_cross_NPC.prefab
+  uploadId: 275751
