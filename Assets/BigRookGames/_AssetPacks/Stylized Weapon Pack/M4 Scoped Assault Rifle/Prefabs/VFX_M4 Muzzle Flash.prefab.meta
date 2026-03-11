@@ -1,11 +1,8 @@
 fileFormatVersion: 2
-guid: 933e18ea02e20a1429dc3cdc3671dbc7
-MonoImporter:
+guid: 4543ab5e3d405ec40a8d4e9aa5165030
+NativeFormatImporter:
   externalObjects: {}
-  serializedVersion: 2
-  defaultReferences: []
-  executionOrder: 0
-  icon: {instanceID: 0}
+  mainObjectFileID: 100100000
   userData: 
   assetBundleName: 
   assetBundleVariant: 
@@ -15,5 +12,6 @@ AssetOrigin:
   packageName: Stylized M4 Assault Rifle with Scope Complete Kit with Gunshot VFX
     and Sound - Hand Painted AR Machine Gun Automatic Rifle
   packageVersion: 1.1
-  assetPath: Assets/Packages/BigRookGames/Scripts/Weapons/GunfireController.cs
+  assetPath: Assets/BigRookGames/_AssetPacks/Stylized Weapon Pack/M4 Scoped Assault
+    Rifle/Prefabs/VFX_M4 Muzzle Flash.prefab
   uploadId: 389070

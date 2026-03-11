@@ -1,0 +1,8 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(find \"C:\\\\Users\\\\J\\\\Desktop\\\\FP 2025-2026\\\\RAY\\\\ProyectosEliseo\\\\EXAMEN-3D-SHOOTER\\\\Assets\\\\Packages\" -name \"*.cs\" -type f 2>/dev/null | grep -v Library)",
+      "Bash(find \"C:\\\\Users\\\\J\\\\Desktop\\\\FP 2025-2026\\\\RAY\\\\ProyectosEliseo\\\\EXAMEN-3D-SHOOTER\\\\Assets\" -name \"*.cs\" -type f 2>/dev/null | grep -v Library | sort)"
+    ]
+  }
+}
