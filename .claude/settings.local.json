@@ -2,7 +2,13 @@
   "permissions": {
     "allow": [
       "Bash(find \"C:\\\\Users\\\\J\\\\Desktop\\\\FP 2025-2026\\\\RAY\\\\ProyectosEliseo\\\\EXAMEN-3D-SHOOTER\\\\Assets\\\\Packages\" -name \"*.cs\" -type f 2>/dev/null | grep -v Library)",
-      "Bash(find \"C:\\\\Users\\\\J\\\\Desktop\\\\FP 2025-2026\\\\RAY\\\\ProyectosEliseo\\\\EXAMEN-3D-SHOOTER\\\\Assets\" -name \"*.cs\" -type f 2>/dev/null | grep -v Library | sort)"
+      "Bash(find \"C:\\\\Users\\\\J\\\\Desktop\\\\FP 2025-2026\\\\RAY\\\\ProyectosEliseo\\\\EXAMEN-3D-SHOOTER\\\\Assets\" -name \"*.cs\" -type f 2>/dev/null | grep -v Library | sort)",
+      "Bash(ls \"/c/Users/J/Desktop/FP 2025-2026/RAY/ProyectosEliseo/EXAMEN-3D-SHOOTER/Assets/Animations/\" | grep \"\\\\.fbx$\" | wc -l)",
+      "Bash(find \"C:\\\\Users\\\\J\\\\Desktop\\\\FP 2025-2026\\\\RAY\\\\ProyectosEliseo\\\\EXAMEN-3D-SHOOTER\" -name \"*.prefab\" -type f | xargs grep -l \"b019f7eef0ba89b409ce8e55dd69828c\")",
+      "Bash(ls \"/c/Users/J/Desktop/FP 2025-2026/RAY/ProyectosEliseo/EXAMEN-3D-SHOOTER/Assets/Animations/\" | grep \"\\\\.fbx$\")",
+      "Bash(find \"/c/Users/J/Desktop/FP 2025-2026/RAY/ProyectosEliseo/EXAMEN-3D-SHOOTER/Assets\" -name \"*.fbx\" -type f -newer \"/c/Users/J/Desktop/FP 2025-2026/RAY/ProyectosEliseo/EXAMEN-3D-SHOOTER/Assets/Scripts\" 2>/dev/null | grep -v Packages)",
+      "Bash(find \"/c/Users/J/Desktop/FP 2025-2026/RAY/ProyectosEliseo/EXAMEN-3D-SHOOTER/Assets\" -type f \\\\\\( -name \"*Idle*\" -o -name \"*idle*\" \\\\\\) 2>/dev/null | grep -v Packages)",
+      "Bash(find \"/c/Users/J/Desktop/FP 2025-2026/RAY/ProyectosEliseo/EXAMEN-3D-SHOOTER/Assets/Animations\" -type f -name \"*.fbx\" 2>/dev/null | sort)"
     ]
   }
 }

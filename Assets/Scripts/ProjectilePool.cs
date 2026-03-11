@@ -10,7 +10,7 @@ public class ProjectilePool : MonoBehaviour
     [SerializeField] private Projectile prefab;
     [SerializeField] private int poolSize = 30;
 
-    private Queue<Projectile> available = new Queue<Projectile>();
+    private Stack<Projectile> available = new Stack<Projectile>();
 
     private void Awake()
     {
@@ -21,7 +21,7 @@ public class ProjectilePool : MonoBehaviour
         {
             Projectile p = Instantiate(prefab, transform);
             p.gameObject.SetActive(false);
-            available.Enqueue(p);
+            available.Push(p);
         }
     }
 
@@ -29,9 +29,11 @@ public class ProjectilePool : MonoBehaviour
     public Projectile Get(Vector3 position, Vector3 direction)
     {
         if (available.Count == 0)
+        {
             return null;
+        }
 
-        Projectile p = available.Dequeue();
+        Projectile p = available.Pop();
         p.Launch(position, direction);
         return p;
     }
@@ -39,6 +41,6 @@ public class ProjectilePool : MonoBehaviour
     // Returns a projectile back to the pool for reuse
     public void Return(Projectile p)
     {
-        available.Enqueue(p);
+        available.Push(p);
     }
 }

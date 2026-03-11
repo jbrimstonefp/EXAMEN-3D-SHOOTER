@@ -1,7 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-// Handles firing the M4, consuming ammo from magazine, and reloading from reserve
 public class WeaponController : MonoBehaviour
 {
     [Header("References")]
@@ -14,13 +13,20 @@ public class WeaponController : MonoBehaviour
     [SerializeField] private int magazineSize = 30;
     [SerializeField] private int reserveAmmo = 60;
 
-    [Header("Fire Rate")]
-    [SerializeField] private float fireRate = 10f;
+    [Header("Shooting")]
+    [SerializeField] private float shootingRate = 10f;
+
+    [Header("Reload")]
+    [SerializeField] private float reloadDuration = 2.5f;
+
+    public bool IsFiring;
+    public bool IsReloading;
 
     private InputAction attackAction;
     private InputAction reloadAction;
 
-    private float fireCooldown;
+    private float shootingCooldown;
+    private float reloadTimer;
 
     private void Awake()
     {
@@ -45,39 +51,76 @@ public class WeaponController : MonoBehaviour
 
     private void Update()
     {
-        // Tick down the fire cooldown
-        fireCooldown -= Time.deltaTime;
-
-        // Hold to fire (automatic)
-        if (attackAction.IsPressed() && fireCooldown <= 0f)
-            Fire();
-
-        // Reload with Interact key (E)
-        if (reloadAction.WasPressedThisFrame())
-            Reload();
+        ShootingSpeed();
+        ReloadTimer();
+        Shooting();
+        Reload();
     }
 
-    // Fires a projectile from the muzzle in the camera's forward direction
-    private void Fire()
+    private void ShootingSpeed()
     {
-        if (currentMagazine > 0)
-        {
-            currentMagazine--;
-            fireCooldown = 1f / fireRate;
+        shootingCooldown -= Time.deltaTime;
+    }
 
-            // Shoot in the direction the camera is looking
-            ProjectilePool.Instance.Get(muzzlePoint.position, cameraTransform.forward);
+    private void ReloadTimer()
+    {
+        if (IsReloading)
+        {
+            reloadTimer -= Time.deltaTime;
+            if (reloadTimer <= 0f)
+            {
+                FinishReload();
+            }
         }
     }
 
-    // Moves bullets from reserve into the magazine
+    private void Shooting()
+    {
+        if (attackAction.IsPressed() && shootingCooldown <= 0f && currentMagazine > 0 && !IsReloading)
+        {
+            IsFiring = true;
+            Shoot();
+        }
+        else
+        {
+            IsFiring = false;
+        }
+    }
+
     private void Reload()
+    {
+        if (reloadAction.WasPressedThisFrame() && !IsReloading)
+        {
+            StartReload();
+        }
+    }
+
+    private void Shoot()
+    {
+        currentMagazine--;
+        shootingCooldown = 1f / shootingRate;
+
+        ProjectilePool.Instance.Get(muzzlePoint.position, cameraTransform.forward);
+    }
+
+    private void StartReload()
+    {
+        int bulletsNeeded = magazineSize - currentMagazine;
+        if (bulletsNeeded > 0 && reserveAmmo > 0)
+        {
+            IsReloading = true;
+            reloadTimer = reloadDuration;
+        }
+    }
+
+    private void FinishReload()
     {
         int bulletsNeeded = magazineSize - currentMagazine;
         int bulletsToLoad = Mathf.Min(bulletsNeeded, reserveAmmo);
 
         currentMagazine += bulletsToLoad;
         reserveAmmo -= bulletsToLoad;
+        IsReloading = false;
     }
 
 }
