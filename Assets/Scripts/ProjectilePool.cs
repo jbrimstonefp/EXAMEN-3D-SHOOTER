@@ -26,16 +26,13 @@ public class ProjectilePool : MonoBehaviour
     }
 
     // Gets a projectile from the pool, launches it at the given position and direction
-    public Projectile Get(Vector3 position, Vector3 direction)
+    public void Get(Vector3 position, Vector3 direction)
     {
-        if (available.Count == 0)
+        if (available.Count > 0)
         {
-            return null;
+            Projectile p = available.Pop();
+            p.Launch(position, direction);
         }
-
-        Projectile p = available.Pop();
-        p.Launch(position, direction);
-        return p;
     }
 
     // Returns a projectile back to the pool for reuse

@@ -8,7 +8,9 @@
       "Bash(ls \"/c/Users/J/Desktop/FP 2025-2026/RAY/ProyectosEliseo/EXAMEN-3D-SHOOTER/Assets/Animations/\" | grep \"\\\\.fbx$\")",
       "Bash(find \"/c/Users/J/Desktop/FP 2025-2026/RAY/ProyectosEliseo/EXAMEN-3D-SHOOTER/Assets\" -name \"*.fbx\" -type f -newer \"/c/Users/J/Desktop/FP 2025-2026/RAY/ProyectosEliseo/EXAMEN-3D-SHOOTER/Assets/Scripts\" 2>/dev/null | grep -v Packages)",
       "Bash(find \"/c/Users/J/Desktop/FP 2025-2026/RAY/ProyectosEliseo/EXAMEN-3D-SHOOTER/Assets\" -type f \\\\\\( -name \"*Idle*\" -o -name \"*idle*\" \\\\\\) 2>/dev/null | grep -v Packages)",
-      "Bash(find \"/c/Users/J/Desktop/FP 2025-2026/RAY/ProyectosEliseo/EXAMEN-3D-SHOOTER/Assets/Animations\" -type f -name \"*.fbx\" 2>/dev/null | sort)"
+      "Bash(find \"/c/Users/J/Desktop/FP 2025-2026/RAY/ProyectosEliseo/EXAMEN-3D-SHOOTER/Assets/Animations\" -type f -name \"*.fbx\" 2>/dev/null | sort)",
+      "Bash(find \"C:\\\\Users\\\\J\\\\Desktop\\\\FP 2025-2026\\\\RAY\\\\ProyectosEliseo\\\\ProtocoloSobrevividor\\\\ProtocoloDelSuperviviente\" -name \"*NavMesh*\" -o -name \"*navmesh*\" 2>/dev/null | head -10)",
+      "Bash(file \"/c/Users/J/Desktop/FP 2025-2026/RAY/ProyectosEliseo/EXAMEN-3D-SHOOTER/Assets/Scenes\"/*.unity)"
     ]
   }
 }

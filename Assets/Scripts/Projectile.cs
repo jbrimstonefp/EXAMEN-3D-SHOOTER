@@ -3,8 +3,10 @@ using UnityEngine;
 // Handles individual projectile movement and collision, returns itself to the pool when done
 public class Projectile : MonoBehaviour
 {
-    [SerializeField] private float speed = 80f;
+    [SerializeField] private float speed = 5f;
     [SerializeField] private float maxLifetime = 5f;
+
+    public bool isEnemyProjectile;
 
     private float aliveTimer;
 
@@ -25,18 +27,30 @@ public class Projectile : MonoBehaviour
         // Return to pool after 5 seconds of flight
         aliveTimer += Time.deltaTime;
         if (aliveTimer >= maxLifetime)
+        {
             ReturnToPool();
+        }
     }
 
-    // Return to pool on collision with any object
+    // Return to pool on collision, skip other triggers (like detection zones)
     private void OnTriggerEnter(Collider other)
     {
-        ReturnToPool();
+        if (!other.isTrigger)
+        {
+            ReturnToPool();
+        }
     }
 
     private void ReturnToPool()
     {
         gameObject.SetActive(false);
-        ProjectilePool.Instance.Return(this);
+        if (isEnemyProjectile)
+        {
+            EnemyProjectilePool.Instance.Return(this);
+        }
+        else
+        {
+            ProjectilePool.Instance.Return(this);
+        }
     }
 }
