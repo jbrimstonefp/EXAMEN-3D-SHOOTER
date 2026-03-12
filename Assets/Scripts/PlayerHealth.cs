@@ -35,6 +35,6 @@ public class PlayerHealth : MonoBehaviour
     private void Die()
     {
         Debug.Log("Player died!");
-        // Future: game over screen
+        GameManager.Instance.OnPlayerDeath();
     }
 }

@@ -7,6 +7,8 @@ public class Projectile : MonoBehaviour
     [SerializeField] private float maxLifetime = 5f;
 
     public bool isEnemyProjectile;
+    public GameObject enemyImpactPrefab;
+    public GameObject defaultImpactPrefab;
 
     private float aliveTimer;
 
@@ -37,7 +39,29 @@ public class Projectile : MonoBehaviour
     {
         if (!other.isTrigger)
         {
+            SpawnImpact(other);
             ReturnToPool();
+        }
+    }
+
+    // Spawns the correct impact particle based on what was hit
+    private void SpawnImpact(Collider other)
+    {
+        GameObject prefab;
+        if (other.CompareTag("Enemy") || other.CompareTag("Player"))
+        {
+            prefab = enemyImpactPrefab;
+        }
+        else
+        {
+            prefab = defaultImpactPrefab;
+        }
+
+        if (prefab != null)
+        {
+            GameObject particle = Instantiate(prefab, transform.position, Quaternion.identity);
+            particle.transform.localScale = Vector3.one * 0.33f;
+            Destroy(particle, 2f);
         }
     }
 

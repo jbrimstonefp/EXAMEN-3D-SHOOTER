@@ -154,3 +154,5 @@ MonoBehaviour:
   speed: 15
   maxLifetime: 5
   isEnemyProjectile: 0
+  enemyImpactPrefab: {fileID: 8038344524183138613, guid: 0277167a12290af47801444830a2be97, type: 3}
+  defaultImpactPrefab: {fileID: 6192724089161036641, guid: e17d9a3f04750764c8c0a7a0461e4c3b, type: 3}

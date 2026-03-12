@@ -11,6 +11,7 @@ public class GhostAI : MonoBehaviour
     public Animator animator;
     public Transform firePointLeft;
     public Transform firePointRight;
+    public GameObject deathParticlePrefab;
     public int health = 5;
     public float detectionRange = 15f;
     public float attackRange = 5f;
@@ -20,6 +21,7 @@ public class GhostAI : MonoBehaviour
     private IState currentState;
     private Renderer ghostRenderer;
     private Coroutine damagePopCoroutine;
+    private bool isDead;
     private Color originalColor;
 
     private void Awake()
@@ -88,16 +90,20 @@ public class GhostAI : MonoBehaviour
     // Reduces health and kills the ghost when it reaches zero
     public void TakeDamage(int damage)
     {
-        health -= damage;
-        if (damagePopCoroutine != null)
+        if (!isDead)
         {
-            StopCoroutine(damagePopCoroutine);
-            transform.localScale = Vector3.one;
-        }
-        damagePopCoroutine = StartCoroutine(DamagePopRoutine());
-        if (health <= 0)
-        {
-            Die();
+            health -= damage;
+            if (damagePopCoroutine != null)
+            {
+                StopCoroutine(damagePopCoroutine);
+                transform.localScale = Vector3.one;
+            }
+            damagePopCoroutine = StartCoroutine(DamagePopRoutine());
+            if (health <= 0)
+            {
+                isDead = true;
+                Die();
+            }
         }
     }
 
@@ -110,11 +116,28 @@ public class GhostAI : MonoBehaviour
         transform.localScale = originalScale;
     }
 
-    // Plays dissolve animation and returns to the pool
+    // Plays dissolve animation, spawns death particle, and returns to the pool
     private void Die()
     {
+        currentState = null;
+        StopAllCoroutines();
+        ResetColor();
+        agent.SetDestination(transform.position);
         animator.SetTrigger("dissolve");
-        // Small delay before returning to pool so the dissolve animation can play
+        if (deathParticlePrefab != null)
+        {
+            Camera cam = Camera.main;
+            Quaternion rotation = Quaternion.LookRotation(cam.transform.forward);
+            GameObject particle = Instantiate(deathParticlePrefab, transform.position + Vector3.up, rotation);
+            particle.transform.localScale = Vector3.one * 0.3f;
+            ParticleSystem ps = particle.GetComponentInChildren<ParticleSystem>();
+            if (ps != null)
+            {
+                ps.Play(true);
+            }
+            Destroy(particle, 3f);
+        }
+
         Invoke("ReturnToPool", 1.5f);
     }
 
@@ -133,8 +156,9 @@ public class GhostAI : MonoBehaviour
     {
         for (int i = 0; i < 3; i++)
         {
-            Vector3 dirLeft = (player.position - firePointLeft.position).normalized;
-            Vector3 dirRight = (player.position - firePointRight.position).normalized;
+            Vector3 playerChest = player.position + Vector3.up;
+            Vector3 dirLeft = (playerChest - firePointLeft.position).normalized;
+            Vector3 dirRight = (playerChest - firePointRight.position).normalized;
             EnemyProjectilePool.Instance.Get(firePointLeft.position, dirLeft);
             EnemyProjectilePool.Instance.Get(firePointRight.position, dirRight);
             yield return new WaitForSeconds(0.1f);
@@ -173,6 +197,7 @@ public class GhostAI : MonoBehaviour
     public void ResetGhost()
     {
         health = 5;
+        isDead = false;
         currentState = null;
         ChangeState(new PatrolState(this));
     }

@@ -13,6 +13,9 @@ public class GhostPool : MonoBehaviour
     public Transform player;
 
     private Stack<GameObject> available = new Stack<GameObject>();
+    private int activeGhostCount;
+
+    public int ActiveGhostCount { get { return activeGhostCount; } }
 
     private void Awake()
     {
@@ -31,8 +34,13 @@ public class GhostPool : MonoBehaviour
 
             available.Push(ghost);
         }
+    }
 
-        // Activate all ghosts at random spawn points
+    // Activates all ghosts at random spawn points
+    public void ActivateGhosts()
+    {
+        activeGhostCount = poolSize;
+
         for (int i = 0; i < poolSize; i++)
         {
             if (available.Count > 0)
@@ -65,6 +73,6 @@ public class GhostPool : MonoBehaviour
     public void Push(GameObject ghost)
     {
         ghost.SetActive(false);
-        // Ghost stays in the stack but won't be reactivated — once killed, it's gone
+        activeGhostCount--;
     }
 }

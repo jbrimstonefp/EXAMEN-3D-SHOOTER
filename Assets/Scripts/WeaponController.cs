@@ -22,6 +22,9 @@ public class WeaponController : MonoBehaviour
     public bool IsFiring;
     public bool IsReloading;
 
+    public int CurrentMagazine { get { return currentMagazine; } }
+    public int ReserveAmmo { get { return reserveAmmo; } }
+
     private InputAction attackAction;
     private InputAction reloadAction;
 
